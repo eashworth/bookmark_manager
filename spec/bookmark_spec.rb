@@ -6,24 +6,24 @@ describe Bookmark do
       connection = PG.connect(dbname: 'bookmark_manager_test')
 
       # Add the test data:
-      Bookmark.add_new_bookmark('http://www.makersacademy.com')
-      Bookmark.add_new_bookmark('http://askjeeves.com')
-      Bookmark.add_new_bookmark('http://www.google.com')
+      Bookmark.add_new_bookmark('http://www.makersacademy.com', 'Makers Academy')
+      Bookmark.add_new_bookmark('http://askjeeves.com', 'Ask Jeeves')
+      Bookmark.add_new_bookmark('http://www.google.com', 'Google')
 
       bookmarks = Bookmark.all
 
-      expect(bookmarks).to include('http://www.makersacademy.com')
-      expect(bookmarks).to include('http://askjeeves.com')
-      expect(bookmarks).to include('http://www.google.com')
+      expect(bookmarks.length).to eq 3
+      expect(bookmarks.first.url).to eq('http://www.makersacademy.com')
+      expect(bookmarks.first.title).to eq('Makers Academy')
     end
   end
 
   describe '.add_new_bookmark' do
     it 'adds a new url' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
-      Bookmark.add_new_bookmark('https://www.bbc.co.uk')
+      bookmark = Bookmark.add_new_bookmark('https://www.bbc.co.uk', 'BBC')
       bookmarks = Bookmark.all
-      expect(bookmarks).to include('https://www.bbc.co.uk')
+      expect(bookmarks).to include(bookmark)
     end
   end
 end

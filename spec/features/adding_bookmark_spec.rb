@@ -9,7 +9,8 @@ feature 'Adding a bookmark' do
     visit '/bookmarks'
     click_button 'Add new bookmark'
     fill_in 'url', with: 'https://www.bbc.co.uk'
+    fill_in 'title', with: 'BBC'
     click_button 'Confirm'
-    expect(page).to have_content('https://www.bbc.co.uk')
+    expect(page).to include_link('BBC', href: 'https://www.bbc.co.uk')
   end
 end
