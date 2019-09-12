@@ -8,7 +8,7 @@ feature 'Adding a bookmark' do
   scenario 'Input and store a bookmark' do
     visit '/bookmarks'
     click_button 'Add new bookmark'
-    fill_in 'New bookmark', with: 'https://www.bbc.co.uk'
+    fill_in 'url', with: 'https://www.bbc.co.uk'
     click_button 'Confirm'
     expect(page).to have_content('https://www.bbc.co.uk')
   end
