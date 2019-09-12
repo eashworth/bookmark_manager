@@ -22,8 +22,11 @@ describe Bookmark do
     it 'adds a new url' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
       bookmark = Bookmark.add_new_bookmark('https://www.bbc.co.uk', 'BBC')
-      bookmarks = Bookmark.all
-      expect(bookmarks).to include(bookmark)
+      id = bookmark.id
+      result = connection.query("SELECT * FROM bookmarks WHERE id = #{id};")
+      expect(bookmark.id).to eq(result.first['id'])
+      expect(bookmark.url).to eq('https://www.bbc.co.uk')
+      expect(bookmark.title).to eq('BBC')
     end
   end
 end
