@@ -17,7 +17,7 @@ attr_reader :id, :url, :title
     end
   end
 
-  def self.add_new_bookmark(url, title)
+  def self.add_new_bookmark(url:, title:)
     conn = self.connect
     result = conn.exec("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, url, title")
     Bookmark.new(result[0]['id'], result[0]['url'], result[0]['title'])

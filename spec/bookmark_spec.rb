@@ -5,10 +5,11 @@ describe Bookmark do
     it 'returns all bookmarks' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
 
-      # Add the test data:
-      Bookmark.add_new_bookmark('http://www.makersacademy.com', 'Makers Academy')
-      Bookmark.add_new_bookmark('http://askjeeves.com', 'Ask Jeeves')
-      Bookmark.add_new_bookmark('http://www.google.com', 'Google')
+      #Add the test data:
+
+      Bookmark.add_new_bookmark(url: 'http://www.makersacademy.com', title: 'Makers Academy')
+      Bookmark.add_new_bookmark(url: 'http://askjeeves.com', title: 'Ask Jeeves')
+      Bookmark.add_new_bookmark(url: 'http://www.google.com', title: 'Google')
 
       bookmarks = Bookmark.all
 
@@ -21,7 +22,7 @@ describe Bookmark do
   describe '.add_new_bookmark' do
     it 'adds a new url' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
-      bookmark = Bookmark.add_new_bookmark('https://www.bbc.co.uk', 'BBC')
+      bookmark = Bookmark.add_new_bookmark(url: 'https://www.bbc.co.uk', title: 'BBC')
       id = bookmark.id
       result = connection.query("SELECT * FROM bookmarks WHERE id = #{id};")
       expect(bookmark.id).to eq(result.first['id'])
