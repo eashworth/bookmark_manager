@@ -11,6 +11,6 @@ feature 'Adding a bookmark' do
     fill_in 'url', with: 'https://www.bbc.co.uk'
     fill_in 'title', with: 'BBC'
     click_button 'Confirm'
-    expect(page).to include_link('BBC', href: 'https://www.bbc.co.uk')
+    expect(page).to have_link('BBC', href: 'https://www.bbc.co.uk')
   end
 end
